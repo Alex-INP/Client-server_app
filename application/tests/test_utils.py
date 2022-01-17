@@ -25,6 +25,9 @@ class TestUtils(unittest.TestCase):
 		server_response = get_message(client)
 		self.assertEqual({"key_1": "val_1"}, server_response)
 
-	def tearDown(self):
 		self.serv_socket.close()
 		self.client_socket.close()
+
+	def tearDown(self):
+		pass
+
