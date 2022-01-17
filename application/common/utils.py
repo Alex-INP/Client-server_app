@@ -2,7 +2,12 @@
 
 import json
 import application.common.variables as vrb
+from deco import log
+import sys
 
+sys.path.append("..")
+
+@log
 def get_message(client):
     '''
     Утилита приёма и декодирования сообщения
@@ -20,7 +25,7 @@ def get_message(client):
         raise ValueError
     raise ValueError
 
-
+@log
 def send_message(sock, message):
     '''
     Утилита кодирования и отправки сообщения

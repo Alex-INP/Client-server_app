@@ -6,6 +6,7 @@ import time
 from sys import argv
 from common.utils import send_message, get_message
 import log.client_log_config
+from deco import log
 
 LOG = logging.getLogger("client_logger")
 
@@ -21,6 +22,7 @@ LOG = logging.getLogger("client_logger")
 # 	}
 # 	socket_object.send(json.dumps(message).encode(vrb.ENCODING))
 
+@log
 def create_presence(account_name='Guest'):
 	result = {
 		vrb.ACTION: vrb.PRESENCE,
@@ -31,7 +33,7 @@ def create_presence(account_name='Guest'):
 	}
 	return result
 
-
+@log
 def process_answer(message):
 	if vrb.RESPONSE in message:
 		LOG.info("Server response content correct")
@@ -40,7 +42,6 @@ def process_answer(message):
 		return f'400 : {message[vrb.ERROR]}'
 	LOG.warning("Incorrect server response content.")
 	raise ValueError
-
 
 def main():
 	if "-p" in argv:

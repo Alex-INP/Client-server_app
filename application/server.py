@@ -6,9 +6,11 @@ import time
 from sys import argv
 from common.utils import send_message, get_message
 import log.server_log_config
+from deco import log
 
 LOG = logging.getLogger("server_logger")
 
+@log
 def process_client_message(message):
 	if vrb.ACTION in message and message[vrb.ACTION] == vrb.PRESENCE and vrb.TIME in message \
 			and vrb.USER in message and message[vrb.USER][vrb.ACCOUNT_NAME] == 'Guest':
