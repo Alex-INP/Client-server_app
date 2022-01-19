@@ -16,8 +16,13 @@ ACTION = 'action'
 TIME = 'time'
 USER = 'user'
 ACCOUNT_NAME = 'account_name'
+TO = 'to'
+FROM = 'from'
+JIM_MESSAGE = 'message'
+JIM_ENCODING = 'encoding'
 
 # Прочие ключи, используемые в протоколе
 PRESENCE = 'presence'
 RESPONSE = 'response'
+MESSAGE = 'msg'
 ERROR = 'error'

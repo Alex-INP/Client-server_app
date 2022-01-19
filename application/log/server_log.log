@@ -1,8 +1,0 @@
-2022-01-17 19:39:48,658   INFO       server     Socket created and listening: 127.0.0.1:7777
-2022-01-17 19:39:50,611   INFO       server     Client message registered from: 127.0.0.1:60010
-2022-01-17 19:39:50,627   DEBUG      server     Function name: get_message Args: (<socket.socket fd=440, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 60010)>,), Kwargs: {}
-2022-01-17 19:39:50,627   DEBUG      server     Function name: process_client_message Args: ({'action': 'presence', 'time': 1642437590.6116133, 'user': {'account_name': 'Guest'}},), Kwargs: {}
-2022-01-17 19:39:50,627   INFO       server     Client message content correct
-2022-01-17 19:39:50,627   INFO       server     Client message content: {'action': 'presence', 'time': 1642437590.6116133, 'user': {'account_name': 'Guest'}}
-2022-01-17 19:39:50,627   DEBUG      server     Function name: send_message Args: (<socket.socket fd=440, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 7777), raddr=('127.0.0.1', 60010)>, {'response': 200}), Kwargs: {}
-2022-01-17 19:39:50,627   INFO       server     Response sent.

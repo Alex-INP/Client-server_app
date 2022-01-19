@@ -74,7 +74,7 @@ def main():
 	parser = argparse.ArgumentParser(description="Client launch")
 	parser.add_argument("-a", "--address", nargs="?", default=vrb.DEFAULT_IP_ADDRESS, help="Server ip adress")
 	parser.add_argument("-p", "--port", nargs="?", default=vrb.DEFAULT_PORT, help="Server port")
-	parser.add_argument("-m", "--mode", nargs="?", default="send", help="Client mode")
+	parser.add_argument("-m", "--mode", nargs="?", default="listen", help="Client mode")
 	arguments = parser.parse_args(sys.argv[1:])
 	adr = arguments.address
 	port = arguments.port
@@ -98,7 +98,6 @@ def main():
 		LOG.critical(f"Wrong client mode: {mode}")
 		sys.exit(1)
 	LOG.info(f"Client launched. Mode: {mode}")
-
 
 	sock = socket(AF_INET, SOCK_STREAM)
 	sock.connect((adr, port))

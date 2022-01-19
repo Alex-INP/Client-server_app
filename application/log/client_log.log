@@ -1,9 +1,0 @@
-2022-01-17 19:39:50,611 DEBUG      client     Function name: main Args: (), Kwargs: {}
-2022-01-17 19:39:50,611 INFO       client     Socket created and connected to: 127.0.0.1:7777
-2022-01-17 19:39:50,611 DEBUG      client     Function name: create_presence Args: (), Kwargs: {}
-2022-01-17 19:39:50,611 DEBUG      client     Function name: send_message Args: (<socket.socket fd=304, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60010), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1642437590.6116133, 'user': {'account_name': 'Guest'}}), Kwargs: {}
-2022-01-17 19:39:50,611 INFO       client     Presence msg sent
-2022-01-17 19:39:50,611 DEBUG      client     Function name: get_message Args: (<socket.socket fd=304, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 60010), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
-2022-01-17 19:39:50,627 DEBUG      client     Function name: process_answer Args: ({'response': 200},), Kwargs: {}
-2022-01-17 19:39:50,627 INFO       client     Server response content correct
-2022-01-17 19:39:50,627 INFO       client     Server answer message: 200 : OK
