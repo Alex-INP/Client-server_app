@@ -3,8 +3,9 @@ from socket import socket, AF_INET, SOCK_STREAM
 import common.variables as vrb
 import json
 import time
-from sys import argv
 import select
+import argparse
+import sys
 
 from common.utils import send_message, get_message
 import log.server_log_config
@@ -12,67 +13,72 @@ from deco import log
 
 LOG = logging.getLogger("server_logger")
 
+
 @log
-def process_client_message(message, message_list, client):
+def process_client_message(message, message_list, client, all_clients, clients_sockets):
 	if vrb.ACTION in message and message[vrb.ACTION] == vrb.PRESENCE and vrb.TIME in message \
-			and vrb.USER in message and message[vrb.USER][vrb.ACCOUNT_NAME] == 'Guest':
-		send_message(client, {vrb.RESPONSE: 200})
-		LOG.info("Client's presence message has been responded ")
+			and vrb.USER in message:
+		if message[vrb.USER][vrb.ACCOUNT_NAME] not in clients_sockets.keys():
+			clients_sockets[message[vrb.USER][vrb.ACCOUNT_NAME]] = client
+			send_message(client, {vrb.RESPONSE: 200})
+			LOG.info("Client's presence message has been responded ")
+		else:
+			send_message(client, {vrb.RESPONSE: 409,
+								  vrb.ERROR: f"Connection with username {message[vrb.USER][vrb.ACCOUNT_NAME]} already exists"})
+			all_clients.remove(client)
+			client.close()
 		return
 
 	elif vrb.ACTION in message and message[vrb.ACTION] == vrb.MESSAGE and vrb.TIME in message \
 			and vrb.TO in message and vrb.FROM in message and vrb.JIM_ENCODING in message \
 			and vrb.JIM_MESSAGE in message:
-		message_list.append((message[vrb.TO], message[vrb.JIM_MESSAGE]))
+		message_list.append(message)
+		return
+	elif vrb.ACTION in message and message[
+		vrb.ACTION] == vrb.EXIT and vrb.TIME in message and vrb.ACCOUNT_NAME in message \
+			and message[vrb.ACCOUNT_NAME] in clients_sockets.keys():
+		all_clients.remove(client)
+		del clients_sockets[message[vrb.ACCOUNT_NAME]]
+		client.close()
+		LOG.info(f"User {message[vrb.ACCOUNT_NAME]} exited.")
 		return
 
 	LOG.warning("Incorrect client message content.")
-	return {
+	send_message(client, {
 		vrb.RESPONSE: 400,
 		vrb.ERROR: 'Bad Request'
-	}
+	})
+	return
+
 
 def create_listening_socket(adr, port):
 	sock = socket(AF_INET, SOCK_STREAM)
 	sock.bind((adr, port))
 	sock.listen(vrb.MAX_CONNECTIONS)
-	sock.settimeout(0.2)
+	sock.settimeout(0.3)
 	LOG.info(f"Socket created and listening: {adr}:{port}")
 	return sock
 
-# def send_status_response(message, client_socket):
-# 	message = json.loads(message.decode(vrb.ENCODING))
-# 	status_response_msg = {
-# 		"response": "",
-# 		"time": time.time(),
-# 		"alert": ""
-# 	}
-# 	error_status_response_msg = {
-# 		"response": 400,
-# 		"error": "Bad request"
-# 	}
-# 	try:
-# 		if message["action"] == 'presence':
-# 			status_response_msg["response"] = 200
-# 			client_socket.send(json.dumps(status_response_msg).encode(vrb.ENCODING))
-# 		else:
-# 			client_socket.send(json.dumps(error_status_response_msg).encode(vrb.ENCODING))
-# 	except:
-# 		client_socket.send(json.dumps(error_status_response_msg).encode(vrb.ENCODING))
-# 	client_socket.close()
+
+def send_ptp_message(message, clients_sockets, waiting_clients):
+	if message[vrb.TO] in clients_sockets and clients_sockets[message[vrb.TO]] in waiting_clients:
+		send_message(clients_sockets[message[vrb.TO]], message)
+		LOG.info(f"Message sent to {message[vrb.TO]} from {message[vrb.FROM]}")
+	elif message[vrb.TO] in clients_sockets and clients_sockets[message[vrb.TO]] not in waiting_clients:
+		raise ConnectionError
+	else:
+		LOG.error(f"There is no user {message[vrb.TO]} in system.")
 
 
 def main():
-	if "-p" in argv:
-		port = int(argv[argv.index('-p') + 1])
-	else:
-		port = vrb.DEFAULT_PORT
-	if "-a" in argv:
-		adr = int(argv[argv.index('-a') + 1])
-	else:
-		adr = vrb.DEFAULT_IP_ADDRESS
+	parser = argparse.ArgumentParser(description="Server launch")
+	parser.add_argument("-a", "--address", nargs="?", default=vrb.DEFAULT_IP_ADDRESS, help="Server ip address")
+	parser.add_argument("-p", "--port", nargs="?", default=vrb.DEFAULT_PORT, help="Server port")
+	arguments = parser.parse_args(sys.argv[1:])
+	adr = arguments.address
+	port = arguments.port
 
-	if 1023 > port > 65535:
+	if 1023 > port > 65536:
 		LOG.critical(f"Wrong port: {port}")
 		raise ValueError
 
@@ -80,59 +86,44 @@ def main():
 
 	all_client_sockets = []
 	messages_list = []
+	usernames_sockets_dict = {}
+	print(f"Server launched at: {adr}:{port}")
 
 	while True:
 		try:
 			client_sock, client_addr = sock.accept()
-		except OSError as e:
+		except OSError:
 			pass
 		else:
 			all_client_sockets.append(client_sock)
 			LOG.info(f"Client connection registered from: {client_addr[0]}:{client_addr[1]}")
-		finally:
-			recv_list = []
-			write_list = []
-			error_list = []
-			try:
+
+		recv_list = []
+		write_list = []
+		error_list = []
+		try:
+			if all_client_sockets:
 				recv_list, write_list, error_list = select.select(all_client_sockets, all_client_sockets, [], 0)
-			except Exception as e:
-				pass
-			# LOG.info(f"Client {client_addr[0]}:{client_addr[1]} disconnected")
-			# print(recv_list)
-			# print(write_list)
-			# print(error_list)
-			# print("_____")
-			# print(messages_list)
+		except OSError:
+			pass
 
-			if recv_list:
-				for client in recv_list:
-					try:
-						process_client_message(get_message(client), messages_list, client)
-						# print("Got msg")
-						# print("_____")
-						# print(messages_list)
-					except:
-						LOG.info(f"Client {client.getpeername()} disconnected from server")
-						all_client_sockets.remove(client)
+		if recv_list:
+			for client in recv_list:
+				try:
+					process_client_message(get_message(client), messages_list, client, all_client_sockets,
+										   usernames_sockets_dict)
+				except:
+					LOG.info(f"Client {client.getpeername()} disconnected from server")
+					all_client_sockets.remove(client)
 
-			if messages_list and write_list:
-				mst_for_client = {
-					vrb.ACTION: vrb.MESSAGE,
-					vrb.TIME: time.time(),
-					vrb.TO: "account_name_1",
-					vrb.FROM: messages_list[0][0],
-					vrb.JIM_ENCODING: vrb.ENCODING,
-					vrb.JIM_MESSAGE: messages_list[0][1]
-				}
-				del messages_list[0]
-				for client in write_list:
-					try:
-						send_message(client, mst_for_client)
-						# print("SENT")
-					except:
-						LOG.info(f"Client {client.getpeername()} disconnected from server")
-						all_client_sockets.remove(client)
-
+		for msg in messages_list:
+			try:
+				send_ptp_message(msg, usernames_sockets_dict, write_list)
+			except:
+				LOG.info(f"Client {msg[vrb.TO]} disconnected from server")
+				all_client_sockets.remove(usernames_sockets_dict[vrb.TO])
+				del usernames_sockets_dict[msg[vrb.TO]]
+		messages_list.clear()
 
 
 if __name__ == '__main__':

@@ -63,7 +63,7 @@ def client_message_process(message):
 	if vrb.ACTION in message and message[vrb.ACTION] == vrb.MESSAGE and vrb.TIME in message \
 			and vrb.TO in message and vrb.FROM in message and vrb.JIM_ENCODING in message \
 			and vrb.JIM_MESSAGE in message:
-		LOG.info(f"Message from user: {message[vrb.FROM]}\nMessage: {message[vrb.JIM_MESSAGE]}")
+		LOG.info(f"Message from user: {message[vrb.FROM]} Message: {message[vrb.JIM_MESSAGE]}")
 		print(f"Message from user: {message[vrb.FROM]}\nMessage: {message[vrb.JIM_MESSAGE]}")
 		return
 	else:

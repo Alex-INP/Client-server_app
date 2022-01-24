@@ -1,11 +1,12 @@
 """Утилиты"""
 
 import json
-import application.common.variables as vrb
+# import application.common.variables as vrb
+import common.variables as vrb
 from deco import log
 import sys
 
-sys.path.append("..")
+sys.path.append("../")
 
 @log
 def get_message(client):
