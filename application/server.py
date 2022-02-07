@@ -6,6 +6,8 @@ import time
 import select
 import argparse
 import sys
+from server_database import Storage
+import threading
 
 from common.utils import send_message, get_message
 import log.server_log_config
@@ -15,20 +17,23 @@ from metaclasses import ServerMetaclass
 
 LOG = logging.getLogger("server_logger")
 
-class Server(metaclass=ServerMetaclass):
+class Server(threading.Thread, metaclass=ServerMetaclass):
 	addr = dpts.Address()
 	port = dpts.Port()
 
-	def __init__(self, addr, port):
+	def __init__(self, addr, port, database):
+		super().__init__()
 		self.addr, self.port = addr, port
 		self.sock = self.create_listening_socket(self.addr, self.port)
 
 		self.all_client_sockets = []
 		self.messages_list = []
 		self.usernames_sockets_dict = {}
+
+		self.database = database
 		print(f"Server launched at: {self.addr}:{self.port}")
 
-	def run_server(self):
+	def run(self):
 		while True:
 			try:
 				self.client_sock, self.client_addr = self.sock.accept()
@@ -79,6 +84,11 @@ class Server(metaclass=ServerMetaclass):
 				and vrb.USER in message:
 			if message[vrb.USER][vrb.ACCOUNT_NAME] not in clients_sockets.keys():
 				clients_sockets[message[vrb.USER][vrb.ACCOUNT_NAME]] = client
+
+				client_ip, client_port = client.getpeername()
+				print(client_ip, client_port)
+				self.database.user_login(message[vrb.USER][vrb.ACCOUNT_NAME], client_ip, client_port)
+
 				send_message(client, {vrb.RESPONSE: 200})
 				LOG.info("Client's presence message has been responded ")
 			else:
@@ -96,6 +106,8 @@ class Server(metaclass=ServerMetaclass):
 		elif vrb.ACTION in message and message[
 			vrb.ACTION] == vrb.EXIT and vrb.TIME in message and vrb.ACCOUNT_NAME in message \
 				and message[vrb.ACCOUNT_NAME] in clients_sockets.keys():
+			self.database.user_logout(message[vrb.ACCOUNT_NAME])
+
 			all_clients.remove(client)
 			del clients_sockets[message[vrb.ACCOUNT_NAME]]
 			client.close()
@@ -118,6 +130,13 @@ class Server(metaclass=ServerMetaclass):
 		else:
 			LOG.error(f"There is no user {message[vrb.TO]} in system.")
 
+def print_help():
+	print("List of commands:")
+	print("users - known users list")
+	print("connected - connected users list")
+	print("loghist - user login history")
+	print("exit - server sutdown")
+
 
 def main():
 	parser = argparse.ArgumentParser(description="Server launch")
@@ -127,13 +146,37 @@ def main():
 	adr = arguments.address
 	port = arguments.port
 
+	database = Storage()
+
 	if 1023 > port > 65536:
 		LOG.critical(f"Wrong port: {port}")
 		raise ValueError
 
-	server = Server(adr, port)
-	server.run_server()
+	server = Server(adr, port, database)
+
+	server.start()
+
+	while True:
+		command = input("Input command: ")
+		if command == "help":
+			print_help()
+		elif command == "exit":
+			break
+		elif command == "users":
+			for user in sorted(database.users_list()):
+				print(f"User {user[0]}, last login: {user[1]}")
+		elif command == "connected":
+			for user in sorted(database.active_users_list()):
+				print(f"User {user[0]}, connected: {user[1]}:{user[2]}, login time: {user[3]}")
+		elif command == "loghist":
+			name = input(
+				"Input username to view user's history, or press enter to view global history: ")
+			for user in sorted(database.login_history(name)):
+				print(f"User: {user[0]} login time: {user[1]}. Login from: {user[2]}:{user[3]}")
+		else:
+			print("Unknown command")
+		print("--------------------------------")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	main()
