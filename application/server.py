@@ -1,11 +1,19 @@
+import configparser
+import os
 import logging
 from socket import socket, AF_INET, SOCK_STREAM
+
+from PyQt5.QtCore import QTimer
+from PyQt5.QtWidgets import QApplication, QMessageBox
+
 import common.variables as vrb
 import json
 import time
 import select
 import argparse
 import sys
+
+from application.server_gui import MainWindow, gui_create_model, ConfigWindow
 from server_database import Storage
 import threading
 
@@ -16,6 +24,8 @@ import descriptors as dpts
 from metaclasses import ServerMetaclass
 
 LOG = logging.getLogger("server_logger")
+new_connection = False
+
 
 class Server(threading.Thread, metaclass=ServerMetaclass):
 	addr = dpts.Address()
@@ -80,6 +90,7 @@ class Server(threading.Thread, metaclass=ServerMetaclass):
 
 	@log
 	def process_client_message(self, message, message_list, client, all_clients, clients_sockets):
+		global new_connection
 		if vrb.ACTION in message and message[vrb.ACTION] == vrb.PRESENCE and vrb.TIME in message \
 				and vrb.USER in message:
 			if message[vrb.USER][vrb.ACCOUNT_NAME] not in clients_sockets.keys():
@@ -88,8 +99,10 @@ class Server(threading.Thread, metaclass=ServerMetaclass):
 				client_ip, client_port = client.getpeername()
 				print(client_ip, client_port)
 				self.database.user_login(message[vrb.USER][vrb.ACCOUNT_NAME], client_ip, client_port)
-
+				print("DB done")
 				send_message(client, {vrb.RESPONSE: 200})
+				print("RESP SENT")
+				new_connection = True
 				LOG.info("Client's presence message has been responded ")
 			else:
 				send_message(client, {vrb.RESPONSE: 409,
@@ -138,14 +151,26 @@ def print_help():
 	print("exit - server sutdown")
 
 
+
 def main():
+	conf = configparser.ConfigParser()
+
+	dir_path = os.path.dirname(os.path.realpath(__file__))
+	conf.read(f"{dir_path}/{'server.ini'}")
+
+	default_adr = conf["SETTINGS"]["listen_address"]
+	default_port = int(conf["SETTINGS"]["default_port"])
+
+
 	parser = argparse.ArgumentParser(description="Server launch")
-	parser.add_argument("-a", "--address", nargs="?", default=vrb.DEFAULT_IP_ADDRESS, help="Server ip address")
-	parser.add_argument("-p", "--port", nargs="?", default=vrb.DEFAULT_PORT, help="Server port")
+	parser.add_argument("-a", "--address", nargs="?", default=default_adr, help="Server ip address")
+	parser.add_argument("-p", "--port", nargs="?", default=default_port, help="Server port")
 	arguments = parser.parse_args(sys.argv[1:])
 	adr = arguments.address
 	port = arguments.port
 
+
+	# database = Storage(os.path.join(conf["SETTINGS"]["database_path"], conf["SETTINGS"]["database_file"]))
 	database = Storage()
 
 	if 1023 > port > 65536:
@@ -153,29 +178,85 @@ def main():
 		raise ValueError
 
 	server = Server(adr, port, database)
+	server.daemon = True
 
 	server.start()
 
-	while True:
-		command = input("Input command: ")
-		if command == "help":
-			print_help()
-		elif command == "exit":
-			break
-		elif command == "users":
-			for user in sorted(database.users_list()):
-				print(f"User {user[0]}, last login: {user[1]}")
-		elif command == "connected":
-			for user in sorted(database.active_users_list()):
-				print(f"User {user[0]}, connected: {user[1]}:{user[2]}, login time: {user[3]}")
-		elif command == "loghist":
-			name = input(
-				"Input username to view user's history, or press enter to view global history: ")
-			for user in sorted(database.login_history(name)):
-				print(f"User: {user[0]} login time: {user[1]}. Login from: {user[2]}:{user[3]}")
+	app = QApplication(sys.argv)
+	main_window = MainWindow()
+
+	main_window.statusBar().showMessage("Server Working")
+	main_window.active_clients_table.setModel(gui_create_model(database))
+	main_window.active_clients_table.resizeColumnsToContents()
+	main_window.active_clients_table.resizeRowsToContents()
+
+	def list_update():
+		global new_connection
+		if new_connection:
+			main_window.active_clients_table.setModel(gui_create_model(database))
+			main_window.active_clients_table.resizeColumnsToContents()
+			main_window.active_clients_table.resizeRowsToContents()
+			new_connection = False
+
+	def server_config():
+		global config_window
+		config_window = ConfigWindow()
+		config_window.db_path.insert(conf["SETTINGS"]["database_path"])
+		config_window.db_file.insert(conf["SETTINGS"]["database_file"])
+		config_window.port.insert(conf["SETTINGS"]["default_port"])
+		config_window.ip.insert(conf["SETTINGS"]["listen_Address"])
+		config_window.save_btn.clicked.connect(save_server_config)
+
+	def save_server_config():
+		global config_window
+		message = QMessageBox()
+		conf["SETTINGS"]["database_path"] = config_window.db_path.text()
+		conf["SETTINGS"]["database_file"] = config_window.db_file.text()
+		try:
+			port = int(config_window.port.text())
+		except ValueError:
+			message.warning(config_window, "Error", "Port must be an integer")
 		else:
-			print("Unknown command")
-		print("--------------------------------")
+			conf["SETTINGS"]["listen_Address"] = config_window.ip.text()
+			if 1023 < port < 65536:
+				conf["SETTINGS"]["default_port"] = str(port)
+				print(port)
+				with open("server.ini", "w") as file:
+					conf.write(file)
+					message.information(config_window, "Ok", "Settings saved.")
+			else:
+				message.warning(config_window, "Error",	"Wrong port")
+
+
+	timer = QTimer()
+	timer.timeout.connect(list_update)
+	timer.start(1000)
+
+	main_window.refresh_button.triggered.connect(list_update)
+	main_window.config_btn.triggered.connect(server_config)
+
+	app.exec_()
+
+	# while True:
+	# 	command = input("Input command: ")
+	# 	if command == "help":
+	# 		print_help()
+	# 	elif command == "exit":
+	# 		break
+	# 	elif command == "users":
+	# 		for user in sorted(database.users_list()):
+	# 			print(f"User {user[0]}, last login: {user[1]}")
+	# 	elif command == "connected":
+	# 		for user in sorted(database.active_users_list()):
+	# 			print(f"User {user[0]}, connected: {user[1]}:{user[2]}, login time: {user[3]}")
+	# 	elif command == "loghist":
+	# 		name = input(
+	# 			"Input username to view user's history, or press enter to view global history: ")
+	# 		for user in sorted(database.login_history(name)):
+	# 			print(f"User: {user[0]} login time: {user[1]}. Login from: {user[2]}:{user[3]}")
+	# 	else:
+	# 		print("Unknown command")
+	# 	print("--------------------------------")
 
 
 if __name__ == "__main__":

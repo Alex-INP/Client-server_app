@@ -22,6 +22,7 @@ class Client(metaclass=ClientMetaclass):
 	def run_client(self):
 		try:
 			self.sock = self.create_client_socket(self.adr, self.port, self.name)
+			print("RUN")
 		except (ConnectionRefusedError, ConnectionError):
 			LOG.critical(f"Error connecting to server {self.adr}:{self.port}. Connection refused.")
 			sys.exit(1)

@@ -29,7 +29,8 @@ class Storage:
 			self.port = port
 
 	def __init__(self):
-		self.engine = sqla.create_engine("sqlite:///server_db.db3", echo=False, pool_recycle=7200)
+		path =r"C:\Users\radik\Desktop\Projects\Client-server_app\application\server_db.db3"
+		self.engine = sqla.create_engine(f"sqlite:///{path}", echo=False, pool_recycle=7200)
 		self.metadata = sqla.MetaData()
 
 		users_table = sqla.Table("Users", self.metadata,
@@ -65,16 +66,26 @@ class Storage:
 		self.session.commit()
 
 	def user_login(self, username, ip_address, port):
+		# print(username)
 		query = self.session.query(self.Users).filter_by(name=username)
+		print("---")
+		# print(query.count())
+
+		# print("---")
 		if query.count():
+			print("user if")
 			user = query.first()
 			user.last_login = datetime.datetime.now()
 		else:
+			print("user else")
 
 			user = self.Users(username)
+			print("user else_1")
 
 			self.session.add(user)
+			print("user else_2")
 			self.session.commit()
+			print("commit")
 
 		active_user = self.ActiveUsers(user.id, ip_address, port, datetime.datetime.now())
 		self.session.add(active_user)
@@ -116,7 +127,7 @@ if __name__ == '__main__':
 
 	test_db.user_login('client_1', '192.168.1.4', 8888)
 	test_db.user_login('client_2', '192.168.1.5', 7777)
-
+	test_db.user_login('client_3', '192.168.1.4', 8888)
 	print(test_db.active_users_list())
 
 	test_db.user_logout('client_1')

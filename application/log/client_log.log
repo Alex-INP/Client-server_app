@@ -1,0 +1,140 @@
+2022-02-11 16:31:23,005 INFO       client     Client launched. Username: asdasd, Server address: 127.0.0.1:7777
+2022-02-11 16:31:23,005 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 16:31:23,036 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x0000024622F89F70>, 'asdasd'), Kwargs: {}
+2022-02-11 16:31:23,036 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=396, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63857), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644586283.036946, 'user': {'account_name': 'asdasd'}}), Kwargs: {}
+2022-02-11 16:31:23,036 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=396, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63857), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 16:37:58,078 INFO       client     Client launched. Username: dddd, Server address: 127.0.0.1:7777
+2022-02-11 16:37:58,078 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 16:37:58,109 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001AB34C79F70>, 'dddd'), Kwargs: {}
+2022-02-11 16:37:58,109 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=344, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63876), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644586678.1094728, 'user': {'account_name': 'dddd'}}), Kwargs: {}
+2022-02-11 16:37:58,109 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=344, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63876), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 16:39:43,653 INFO       client     Client launched. Username: hhh, Server address: 127.0.0.1:7777
+2022-02-11 16:39:43,653 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 16:39:43,669 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001CA806B9F70>, 'hhh'), Kwargs: {}
+2022-02-11 16:39:43,669 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=440, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63881), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644586783.6693027, 'user': {'account_name': 'hhh'}}), Kwargs: {}
+2022-02-11 16:39:43,669 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=440, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63881), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 16:48:36,553 INFO       client     Client launched. Username: fgf, Server address: 127.0.0.1:7777
+2022-02-11 16:48:36,553 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 16:48:36,569 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x00000135F5319F70>, 'fgf'), Kwargs: {}
+2022-02-11 16:48:36,569 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63907), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644587316.569389, 'user': {'account_name': 'fgf'}}), Kwargs: {}
+2022-02-11 16:48:36,569 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63907), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 16:49:17,320 INFO       client     Client launched. Username: fg, Server address: 127.0.0.1:7777
+2022-02-11 16:49:17,320 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 16:49:17,336 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x0000028CED4C9F70>, 'fg'), Kwargs: {}
+2022-02-11 16:49:17,336 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=436, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63910), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644587357.3360038, 'user': {'account_name': 'fg'}}), Kwargs: {}
+2022-02-11 16:49:17,336 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=436, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63910), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 16:50:05,137 INFO       client     Client launched. Username: zxf, Server address: 127.0.0.1:7777
+2022-02-11 16:50:05,137 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 16:50:05,152 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x0000010D179C9F70>, 'zxf'), Kwargs: {}
+2022-02-11 16:50:05,152 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=316, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63913), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644587405.1528373, 'user': {'account_name': 'zxf'}}), Kwargs: {}
+2022-02-11 16:50:05,152 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=316, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63913), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 16:50:31,838 INFO       client     Client launched. Username: cx, Server address: 127.0.0.1:7777
+2022-02-11 16:50:31,838 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 16:50:31,854 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001EB36248F70>, 'cx'), Kwargs: {}
+2022-02-11 16:50:31,854 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=440, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63915), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644587431.8544307, 'user': {'account_name': 'cx'}}), Kwargs: {}
+2022-02-11 16:50:31,854 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=440, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63915), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 16:51:10,095 INFO       client     Client launched. Username: fgfg, Server address: 127.0.0.1:7777
+2022-02-11 16:51:10,095 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 16:51:10,126 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x00000210F0699F70>, 'fgfg'), Kwargs: {}
+2022-02-11 16:51:10,126 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=436, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63917), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644587470.126467, 'user': {'account_name': 'fgfg'}}), Kwargs: {}
+2022-02-11 16:51:10,126 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=436, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63917), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 16:52:03,286 INFO       client     Client launched. Username: sdf, Server address: 127.0.0.1:7777
+2022-02-11 16:52:03,286 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 16:52:03,301 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001F2184F9F70>, 'sdf'), Kwargs: {}
+2022-02-11 16:52:03,301 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=448, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63922), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644587523.3017015, 'user': {'account_name': 'sdf'}}), Kwargs: {}
+2022-02-11 16:52:03,301 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=448, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63922), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 16:52:49,947 INFO       client     Client launched. Username: sd, Server address: 127.0.0.1:7777
+2022-02-11 16:52:49,962 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 16:52:49,978 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001E15D9E9F70>, 'sd'), Kwargs: {}
+2022-02-11 16:52:49,978 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63925), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644587569.978354, 'user': {'account_name': 'sd'}}), Kwargs: {}
+2022-02-11 16:52:49,978 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 63925), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:03:20,666 INFO       client     Client launched. Username: sdsdsd, Server address: 127.0.0.1:7777
+2022-02-11 17:03:20,666 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:03:20,682 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001B79C159F70>, 'sdsdsd'), Kwargs: {}
+2022-02-11 17:03:20,682 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=428, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64138), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644588200.6823869, 'user': {'account_name': 'sdsdsd'}}), Kwargs: {}
+2022-02-11 17:03:20,682 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=428, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64138), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:04:02,477 INFO       client     Client launched. Username: adg, Server address: 127.0.0.1:7777
+2022-02-11 17:04:02,477 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:04:02,493 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001BE8FC09F70>, 'adg'), Kwargs: {}
+2022-02-11 17:04:02,493 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=404, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64141), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644588242.493423, 'user': {'account_name': 'adg'}}), Kwargs: {}
+2022-02-11 17:04:02,509 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=404, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64141), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:04:52,255 INFO       client     Client launched. Username: zcvad, Server address: 127.0.0.1:7777
+2022-02-11 17:04:52,255 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:04:52,286 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x00000240F8048F70>, 'zcvad'), Kwargs: {}
+2022-02-11 17:04:52,286 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64144), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644588292.2864285, 'user': {'account_name': 'zcvad'}}), Kwargs: {}
+2022-02-11 17:04:52,286 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64144), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:17:26,957 INFO       client     Client launched. Username: all, Server address: 127.0.0.1:7777
+2022-02-11 17:17:26,957 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:17:26,973 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001E696AE9F70>, 'all'), Kwargs: {}
+2022-02-11 17:17:26,973 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=440, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64229), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644589046.973068, 'user': {'account_name': 'all'}}), Kwargs: {}
+2022-02-11 17:17:26,973 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=440, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64229), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:18:36,373 INFO       client     Client launched. Username: sg, Server address: 127.0.0.1:7777
+2022-02-11 17:18:36,373 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:18:36,405 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001977FB39F70>, 'sg'), Kwargs: {}
+2022-02-11 17:18:36,405 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=320, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64237), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644589116.4052231, 'user': {'account_name': 'sg'}}), Kwargs: {}
+2022-02-11 17:18:36,405 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=320, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64237), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:18:54,947 INFO       client     Client launched. Username: gbszh, Server address: 127.0.0.1:7777
+2022-02-11 17:18:54,962 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:18:54,978 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x0000016F18C59F70>, 'gbszh'), Kwargs: {}
+2022-02-11 17:18:54,978 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=228, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64238), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644589134.9783735, 'user': {'account_name': 'gbszh'}}), Kwargs: {}
+2022-02-11 17:18:54,978 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=228, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64238), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:21:02,394 INFO       client     Client launched. Username: asdfsgd, Server address: 127.0.0.1:7777
+2022-02-11 17:21:02,394 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:21:02,410 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000002E164059F70>, 'asdfsgd'), Kwargs: {}
+2022-02-11 17:21:02,410 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64243), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644589262.4101543, 'user': {'account_name': 'asdfsgd'}}), Kwargs: {}
+2022-02-11 17:21:02,410 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 64243), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:26:42,046 INFO       client     Client launched. Username: dgnbz, Server address: 127.0.0.1:7777
+2022-02-11 17:26:42,046 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:26:42,077 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x00000286F7DE9F70>, 'dgnbz'), Kwargs: {}
+2022-02-11 17:26:42,077 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=456, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55878), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644589602.0777898, 'user': {'account_name': 'dgnbz'}}), Kwargs: {}
+2022-02-11 17:26:42,077 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=456, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55878), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:31:30,159 INFO       client     Client launched. Username: sdfds, Server address: 127.0.0.1:7777
+2022-02-11 17:31:30,159 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:31:30,174 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x0000022719049F70>, 'sdfds'), Kwargs: {}
+2022-02-11 17:31:30,190 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=420, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55899), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644589890.1747327, 'user': {'account_name': 'sdfds'}}), Kwargs: {}
+2022-02-11 17:31:30,190 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=420, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 55899), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:51:13,881 INFO       client     Client launched. Username: client_1, Server address: 127.0.0.1:7777
+2022-02-11 17:51:13,881 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:51:13,897 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x00000201FF1A9F70>, 'client_1'), Kwargs: {}
+2022-02-11 17:51:13,897 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=336, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56068), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644591073.897323, 'user': {'account_name': 'client_1'}}), Kwargs: {}
+2022-02-11 17:51:13,897 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=336, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56068), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 17:58:54,795 INFO       client     Client launched. Username: ghj, Server address: 127.0.0.1:7777
+2022-02-11 17:58:54,797 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 17:58:54,816 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x00000192318E9F70>, 'ghj'), Kwargs: {}
+2022-02-11 17:58:54,818 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=476, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56365), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644591534.8163009, 'user': {'account_name': 'ghj'}}), Kwargs: {}
+2022-02-11 17:58:54,819 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=476, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56365), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 18:00:11,693 INFO       client     Client launched. Username: dfgzah, Server address: 127.0.0.1:7777
+2022-02-11 18:00:11,694 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 18:00:11,714 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x00000265FB408F70>, 'dfgzah'), Kwargs: {}
+2022-02-11 18:00:11,715 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=348, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56369), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644591611.7140017, 'user': {'account_name': 'dfgzah'}}), Kwargs: {}
+2022-02-11 18:00:11,716 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=348, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56369), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 18:01:44,062 INFO       client     Client launched. Username: ghkg, Server address: 127.0.0.1:7777
+2022-02-11 18:01:44,063 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 18:01:44,082 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000002A12FE69F70>, 'ghkg'), Kwargs: {}
+2022-02-11 18:01:44,084 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=412, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56375), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644591704.0826025, 'user': {'account_name': 'ghkg'}}), Kwargs: {}
+2022-02-11 18:01:44,085 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=412, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56375), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 18:06:32,601 INFO       client     Client launched. Username: ghsf, Server address: 127.0.0.1:7777
+2022-02-11 18:06:32,602 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 18:06:32,622 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x00000216B5969F70>, 'ghsf'), Kwargs: {}
+2022-02-11 18:06:32,623 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=424, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56398), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644591992.6226075, 'user': {'account_name': 'ghsf'}}), Kwargs: {}
+2022-02-11 18:06:32,625 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=424, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56398), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 18:14:54,812 INFO       client     Client launched. Username: zdhgdgh, Server address: 127.0.0.1:7777
+2022-02-11 18:14:54,813 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 18:14:54,833 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001DA4B889F70>, 'zdhgdgh'), Kwargs: {}
+2022-02-11 18:14:54,834 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=456, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56420), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644592494.8331392, 'user': {'account_name': 'zdhgdgh'}}), Kwargs: {}
+2022-02-11 18:14:54,836 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=456, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56420), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 18:15:48,521 INFO       client     Client launched. Username: dfg, Server address: 127.0.0.1:7777
+2022-02-11 18:15:48,522 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 18:15:48,542 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x0000029E58DA9F70>, 'dfg'), Kwargs: {}
+2022-02-11 18:15:48,543 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=468, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56423), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644592548.5427582, 'user': {'account_name': 'dfg'}}), Kwargs: {}
+2022-02-11 18:15:48,544 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=468, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56423), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 18:26:03,760 INFO       client     Client launched. Username: asda, Server address: 127.0.0.1:7777
+2022-02-11 18:26:03,762 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 18:26:03,780 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x000001A908659F70>, 'asda'), Kwargs: {}
+2022-02-11 18:26:03,781 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=436, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56450), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644593163.7805493, 'user': {'account_name': 'asda'}}), Kwargs: {}
+2022-02-11 18:26:03,782 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=436, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56450), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
+2022-02-11 18:28:13,796 INFO       client     Client launched. Username: dfsdf, Server address: 127.0.0.1:7777
+2022-02-11 18:28:13,798 INFO       client     Socket created and connected to: 127.0.0.1:7777
+2022-02-11 18:28:13,818 DEBUG      client     Function name: create_presence, Args: (<__main__.Client object at 0x00000236011B9F70>, 'dfsdf'), Kwargs: {}
+2022-02-11 18:28:13,819 DEBUG      client     Function name: send_message, Args: (<socket.socket fd=460, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56464), raddr=('127.0.0.1', 7777)>, {'action': 'presence', 'time': 1644593293.8186138, 'user': {'account_name': 'dfsdf'}}), Kwargs: {}
+2022-02-11 18:28:13,820 DEBUG      client     Function name: get_message, Args: (<socket.socket fd=460, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 56464), raddr=('127.0.0.1', 7777)>,), Kwargs: {}
