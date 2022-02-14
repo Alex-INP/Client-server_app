@@ -43,6 +43,22 @@ def create_stat_model(database):
         list_.appendRow([user, last_seen, sent, recvd])
     return list_
 
+def create_login_hist_model(database):
+    hist_list = database.login_history()
+    list_ = QStandardItemModel()
+    list_.setHorizontalHeaderLabels(["Client name", "Login date", "Ip address", "Port"])
+    for row in hist_list:
+        user, login_date, ip, port = row
+        user = QStandardItem(user)
+        user.setEditable(False)
+        login_date = QStandardItem(str(login_date.replace(microsecond=0)))
+        login_date.setEditable(False)
+        ip = QStandardItem(ip)
+        ip.setEditable(False)
+        port = QStandardItem(str(port))
+        port.setEditable(False)
+        list_.appendRow([user, login_date, ip, port])
+    return list_
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -56,7 +72,8 @@ class MainWindow(QMainWindow):
 
         self.refresh_button = QAction("Update list", self)
         self.config_btn = QAction("Server settings", self)
-        self.show_history_button = QAction("Clients history", self)
+        self.show_history_button = QAction("Clients message history", self)
+        self.login_history_btn = QAction("Clients login history", self)
 
         self.statusBar()
 
@@ -65,6 +82,7 @@ class MainWindow(QMainWindow):
         self.toolbar.addAction(self.refresh_button)
         self.toolbar.addAction(self.show_history_button)
         self.toolbar.addAction(self.config_btn)
+        self.toolbar.addAction(self.login_history_btn)
 
         self.setFixedSize(800, 600)
         self.setWindowTitle("Messaging Server alpha release")
@@ -101,12 +119,12 @@ class ConfigWindow(QDialog):
         self.db_path_select = QPushButton("Browze...", self)
         self.db_path_select.move(275, 28)
 
-        # Функция обработчик открытия окна выбора папки
         def open_file_dialog():
             global dialog
             dialog = QFileDialog(self)
             path = dialog.getExistingDirectory()
-            path = path.replace('/', '\\')
+            path = path.replace("/", "\\")
+            self.db_path.clear()
             self.db_path.insert(path)
 
         self.db_path_select.clicked.connect(open_file_dialog)
@@ -139,7 +157,7 @@ class ConfigWindow(QDialog):
         self.ip.move(200, 148)
         self.ip.setFixedSize(150, 20)
 
-        self.save_btn = QPushButton("Save.", self)
+        self.save_btn = QPushButton("Save", self)
         self.save_btn.move(190, 220)
 
         self.close_button = QPushButton("Close", self)
@@ -147,6 +165,49 @@ class ConfigWindow(QDialog):
         self.close_button.clicked.connect(self.close)
 
         self.show()
+
+
+class HistoryWindow(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle("Client message statistics")
+        self.setFixedSize(600, 700)
+        self.setAttribute(Qt.WA_DeleteOnClose)
+
+        self.close_button = QPushButton("Close", self)
+        self.close_button.move(250, 650)
+        self.close_button.clicked.connect(self.close)
+
+        self.history_table = QTableView(self)
+        self.history_table.move(10, 10)
+        self.history_table.setFixedSize(580, 620)
+
+        self.show()
+
+
+class LoginHistoryWindow(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle("Clients login history")
+        self.setFixedSize(600, 700)
+        self.setAttribute(Qt.WA_DeleteOnClose)
+
+        self.close_button = QPushButton("Close", self)
+        self.close_button.move(250, 650)
+        self.close_button.clicked.connect(self.close)
+
+        self.history_table = QTableView(self)
+        self.history_table.move(10, 10)
+        self.history_table.setFixedSize(580, 620)
+
+        self.show()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

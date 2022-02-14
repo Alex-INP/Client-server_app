@@ -13,7 +13,8 @@ import select
 import argparse
 import sys
 
-from application.server_gui import MainWindow, gui_create_model, ConfigWindow
+from application.server_gui import MainWindow, gui_create_model, ConfigWindow, HistoryWindow, create_stat_model, \
+	LoginHistoryWindow, create_login_hist_model
 from server_database import Storage
 import threading
 
@@ -25,9 +26,11 @@ from metaclasses import ServerMetaclass
 
 LOG = logging.getLogger("server_logger")
 new_connection = False
+thr_lock = threading.Lock()
 
 
 class Server(threading.Thread, metaclass=ServerMetaclass):
+# class Server(metaclass=ServerMetaclass):
 	addr = dpts.Address()
 	port = dpts.Port()
 
@@ -97,12 +100,11 @@ class Server(threading.Thread, metaclass=ServerMetaclass):
 				clients_sockets[message[vrb.USER][vrb.ACCOUNT_NAME]] = client
 
 				client_ip, client_port = client.getpeername()
-				print(client_ip, client_port)
+				# print(client_ip, client_port)
 				self.database.user_login(message[vrb.USER][vrb.ACCOUNT_NAME], client_ip, client_port)
-				print("DB done")
 				send_message(client, {vrb.RESPONSE: 200})
-				print("RESP SENT")
-				new_connection = True
+				with thr_lock:
+					new_connection = True
 				LOG.info("Client's presence message has been responded ")
 			else:
 				send_message(client, {vrb.RESPONSE: 409,
@@ -114,8 +116,11 @@ class Server(threading.Thread, metaclass=ServerMetaclass):
 		elif vrb.ACTION in message and message[vrb.ACTION] == vrb.MESSAGE and vrb.TIME in message \
 				and vrb.TO in message and vrb.FROM in message and vrb.JIM_ENCODING in message \
 				and vrb.JIM_MESSAGE in message:
+			if message[vrb.TO] in clients_sockets.keys():
+				self.database.process_message(message[vrb.FROM], message[vrb.TO])
 			message_list.append(message)
 			return
+
 		elif vrb.ACTION in message and message[
 			vrb.ACTION] == vrb.EXIT and vrb.TIME in message and vrb.ACCOUNT_NAME in message \
 				and message[vrb.ACCOUNT_NAME] in clients_sockets.keys():
@@ -124,6 +129,9 @@ class Server(threading.Thread, metaclass=ServerMetaclass):
 			all_clients.remove(client)
 			del clients_sockets[message[vrb.ACCOUNT_NAME]]
 			client.close()
+
+			with thr_lock:
+				new_connection = True
 			LOG.info(f"User {message[vrb.ACCOUNT_NAME]} exited.")
 			return
 
@@ -151,27 +159,23 @@ def print_help():
 	print("exit - server sutdown")
 
 
-
 def main():
 	conf = configparser.ConfigParser()
 
 	dir_path = os.path.dirname(os.path.realpath(__file__))
 	conf.read(f"{dir_path}/{'server.ini'}")
 
-	default_adr = conf["SETTINGS"]["listen_address"]
 	default_port = int(conf["SETTINGS"]["default_port"])
 
-
 	parser = argparse.ArgumentParser(description="Server launch")
-	parser.add_argument("-a", "--address", nargs="?", default=default_adr, help="Server ip address")
+	parser.add_argument("-a", "--address", nargs="?", default=vrb.DEFAULT_IP_ADDRESS, help="Server ip address")
 	parser.add_argument("-p", "--port", nargs="?", default=default_port, help="Server port")
 	arguments = parser.parse_args(sys.argv[1:])
 	adr = arguments.address
 	port = arguments.port
 
 
-	# database = Storage(os.path.join(conf["SETTINGS"]["database_path"], conf["SETTINGS"]["database_file"]))
-	database = Storage()
+	database = Storage(os.path.join(conf["SETTINGS"]["database_path"], conf["SETTINGS"]["database_file"]))
 
 	if 1023 > port > 65536:
 		LOG.critical(f"Wrong port: {port}")
@@ -196,7 +200,8 @@ def main():
 			main_window.active_clients_table.setModel(gui_create_model(database))
 			main_window.active_clients_table.resizeColumnsToContents()
 			main_window.active_clients_table.resizeRowsToContents()
-			new_connection = False
+			with thr_lock:
+				new_connection = False
 
 	def server_config():
 		global config_window
@@ -220,13 +225,25 @@ def main():
 			conf["SETTINGS"]["listen_Address"] = config_window.ip.text()
 			if 1023 < port < 65536:
 				conf["SETTINGS"]["default_port"] = str(port)
-				print(port)
 				with open("server.ini", "w") as file:
 					conf.write(file)
 					message.information(config_window, "Ok", "Settings saved.")
 			else:
 				message.warning(config_window, "Error",	"Wrong port")
 
+	def show_statistics():
+		global stat_window
+		stat_window = HistoryWindow()
+		stat_window.history_table.setModel(create_stat_model(database))
+		stat_window.history_table.resizeColumnsToContents()
+		stat_window.history_table.resizeRowsToContents()
+
+	def show_login_history():
+		global hist_window
+		hist_window = LoginHistoryWindow()
+		hist_window.history_table.setModel(create_login_hist_model(database))
+		hist_window.history_table.resizeColumnsToContents()
+		hist_window.history_table.resizeRowsToContents()
 
 	timer = QTimer()
 	timer.timeout.connect(list_update)
@@ -234,29 +251,11 @@ def main():
 
 	main_window.refresh_button.triggered.connect(list_update)
 	main_window.config_btn.triggered.connect(server_config)
+	main_window.show_history_button.triggered.connect(show_statistics)
+	main_window.login_history_btn.triggered.connect(show_login_history)
 
 	app.exec_()
 
-	# while True:
-	# 	command = input("Input command: ")
-	# 	if command == "help":
-	# 		print_help()
-	# 	elif command == "exit":
-	# 		break
-	# 	elif command == "users":
-	# 		for user in sorted(database.users_list()):
-	# 			print(f"User {user[0]}, last login: {user[1]}")
-	# 	elif command == "connected":
-	# 		for user in sorted(database.active_users_list()):
-	# 			print(f"User {user[0]}, connected: {user[1]}:{user[2]}, login time: {user[3]}")
-	# 	elif command == "loghist":
-	# 		name = input(
-	# 			"Input username to view user's history, or press enter to view global history: ")
-	# 		for user in sorted(database.login_history(name)):
-	# 			print(f"User: {user[0]} login time: {user[1]}. Login from: {user[2]}:{user[3]}")
-	# 	else:
-	# 		print("Unknown command")
-	# 	print("--------------------------------")
 
 
 if __name__ == "__main__":

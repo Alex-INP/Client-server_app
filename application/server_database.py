@@ -28,9 +28,16 @@ class Storage:
 			self.ip_address = ip
 			self.port = port
 
-	def __init__(self):
-		path =r"C:\Users\radik\Desktop\Projects\Client-server_app\application\server_db.db3"
-		self.engine = sqla.create_engine(f"sqlite:///{path}", echo=False, pool_recycle=7200)
+
+	class UsersMessageHistory:
+		def __init__(self, user):
+			self.id = None
+			self.user = user
+			self.sent = 0
+			self.accepted = 0
+
+	def __init__(self, path):
+		self.engine = sqla.create_engine(f"sqlite:///{path}", echo=False, pool_recycle=7200, connect_args={"check_same_thread": False})
 		self.metadata = sqla.MetaData()
 
 		users_table = sqla.Table("Users", self.metadata,
@@ -52,40 +59,39 @@ class Storage:
 								   sqla.Column("ip_address", sqla.String),
 								   sqla.Column("port", sqla.String),
 								   )
+		users_message_history_table = sqla.Table("Message_history", self.metadata,
+									sqla.Column("id", sqla.Integer, primary_key=True),
+									sqla.Column("user", sqla.ForeignKey("Users.id")),
+									sqla.Column("sent", sqla.Integer),
+									sqla.Column("accepted", sqla.Integer)
+									)
 
 		self.metadata.create_all(self.engine)
 
 		mapper(self.Users, users_table)
 		mapper(self.ActiveUsers, active_users_table)
 		mapper(self.LoginHistory, login_history)
+		mapper(self.UsersMessageHistory, users_message_history_table)
 
-		SESSION = sessionmaker(self.engine)
+		SESSION = sessionmaker(bind=self.engine)
 		self.session = SESSION()
 
 		self.session.query(self.ActiveUsers).delete()
 		self.session.commit()
 
 	def user_login(self, username, ip_address, port):
-		# print(username)
 		query = self.session.query(self.Users).filter_by(name=username)
-		print("---")
-		# print(query.count())
-
-		# print("---")
 		if query.count():
-			print("user if")
 			user = query.first()
 			user.last_login = datetime.datetime.now()
 		else:
-			print("user else")
-
 			user = self.Users(username)
-			print("user else_1")
-
 			self.session.add(user)
-			print("user else_2")
+
 			self.session.commit()
-			print("commit")
+
+			user_msg_history = self.UsersMessageHistory(user.id)
+			self.session.add(user_msg_history)
 
 		active_user = self.ActiveUsers(user.id, ip_address, port, datetime.datetime.now())
 		self.session.add(active_user)
@@ -121,19 +127,39 @@ class Storage:
 			query = query.filter(self.Users.name == username)
 		return query.all()
 
+	def message_history(self):
+		query = self.session.query(
+			self.Users.name,
+			self.Users.last_login,
+			self.UsersMessageHistory.sent,
+			self.UsersMessageHistory.accepted
+		).join(self.Users)
+		return query.all()
 
-if __name__ == '__main__':
-	test_db = Storage()
+	def process_message(self, sender, recipient):
+		sender_db_id = self.session.query(self.Users).filter_by(name=sender).first().id
+		recipient_db_id = self.session.query(self.Users).filter_by(name=recipient).first().id
 
-	test_db.user_login('client_1', '192.168.1.4', 8888)
-	test_db.user_login('client_2', '192.168.1.5', 7777)
-	test_db.user_login('client_3', '192.168.1.4', 8888)
-	print(test_db.active_users_list())
+		sender_row = self.session.query(self.UsersMessageHistory).filter_by(user=sender_db_id).first()
+		sender_row.sent += 1
+		recipient_row = self.session.query(self.UsersMessageHistory).filter_by(user=recipient_db_id).first()
+		recipient_row.accepted += 1
 
-	test_db.user_logout('client_1')
+		self.session.commit()
 
-	print(test_db.active_users_list())
 
-	test_db.login_history('client_1')
-
-	print(test_db.users_list())
+# if __name__ == '__main__':
+# 	test_db = Storage()
+#
+# 	test_db.user_login('client_1', '192.168.1.4', 8888)
+# 	test_db.user_login('client_2', '192.168.1.5', 7777)
+# 	test_db.user_login('client_3', '192.168.1.4', 8888)
+# 	print(test_db.active_users_list())
+#
+# 	test_db.user_logout('client_1')
+#
+# 	print(test_db.active_users_list())
+#
+# 	test_db.login_history('client_1')
+#
+# 	print(test_db.users_list())
