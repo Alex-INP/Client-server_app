@@ -1,4 +1,5 @@
 import datetime
+
 import sqlalchemy as sqla
 from sqlalchemy.orm import mapper, sessionmaker
 
@@ -147,19 +148,3 @@ class Storage:
 
 		self.session.commit()
 
-
-# if __name__ == '__main__':
-# 	test_db = Storage()
-#
-# 	test_db.user_login('client_1', '192.168.1.4', 8888)
-# 	test_db.user_login('client_2', '192.168.1.5', 7777)
-# 	test_db.user_login('client_3', '192.168.1.4', 8888)
-# 	print(test_db.active_users_list())
-#
-# 	test_db.user_logout('client_1')
-#
-# 	print(test_db.active_users_list())
-#
-# 	test_db.login_history('client_1')
-#
-# 	print(test_db.users_list())

@@ -9,7 +9,7 @@ def log(func):
 		module_name = inspect.stack()[1][1].split("/")[-1][:-3]
 		if module_name == "server":
 			LOG = logging.getLogger("server_logger")
-		elif module_name == "client" or module_name == "client_2":
+		else:
 			LOG = logging.getLogger("client_logger")
 		LOG.debug(f"Function name: {func.__name__}, Args: {args}, Kwargs: {kwargs}", stacklevel=2)
 		return func(*args, **kwargs)

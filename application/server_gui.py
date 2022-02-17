@@ -1,8 +1,7 @@
 import sys
-import os
 
 from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QLabel, QTableView, QDialog, QPushButton, \
-    QLineEdit, QFileDialog, QMessageBox
+    QLineEdit, QFileDialog
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 
@@ -23,7 +22,6 @@ def gui_create_model(database):
         time.setEditable(False)
         list_.appendRow([user, ip, port, time])
     return list_
-
 
 def create_stat_model(database):
     hist_list = database.message_history()
@@ -59,6 +57,7 @@ def create_login_hist_model(database):
         port.setEditable(False)
         list_.appendRow([user, login_date, ip, port])
     return list_
+
 
 class MainWindow(QMainWindow):
     def __init__(self):

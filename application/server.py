@@ -30,7 +30,6 @@ thr_lock = threading.Lock()
 
 
 class Server(threading.Thread, metaclass=ServerMetaclass):
-# class Server(metaclass=ServerMetaclass):
 	addr = dpts.Address()
 	port = dpts.Port()
 
@@ -100,7 +99,7 @@ class Server(threading.Thread, metaclass=ServerMetaclass):
 				clients_sockets[message[vrb.USER][vrb.ACCOUNT_NAME]] = client
 
 				client_ip, client_port = client.getpeername()
-				# print(client_ip, client_port)
+
 				self.database.user_login(message[vrb.USER][vrb.ACCOUNT_NAME], client_ip, client_port)
 				send_message(client, {vrb.RESPONSE: 200})
 				with thr_lock:
@@ -138,7 +137,7 @@ class Server(threading.Thread, metaclass=ServerMetaclass):
 		LOG.warning("Incorrect client message content.")
 		send_message(client, {
 			vrb.RESPONSE: 400,
-			vrb.ERROR: 'Bad Request'
+			vrb.ERROR: "Bad Request"
 		})
 		return
 
@@ -150,13 +149,6 @@ class Server(threading.Thread, metaclass=ServerMetaclass):
 			raise ConnectionError
 		else:
 			LOG.error(f"There is no user {message[vrb.TO]} in system.")
-
-def print_help():
-	print("List of commands:")
-	print("users - known users list")
-	print("connected - connected users list")
-	print("loghist - user login history")
-	print("exit - server sutdown")
 
 
 def main():
