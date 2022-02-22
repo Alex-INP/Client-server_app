@@ -6,10 +6,12 @@ from sqlalchemy.orm import mapper, sessionmaker
 
 class Storage:
 	class Users:
-		def __init__(self, username):
+		def __init__(self, username, password):
 			self.name = username
 			self.last_login = datetime.datetime.now()
 			self.id = None
+			self.password = password
+			self.public_key = ""
 
 
 	class ActiveUsers:
@@ -38,13 +40,20 @@ class Storage:
 			self.accepted = 0
 
 	def __init__(self, path):
-		self.engine = sqla.create_engine(f"sqlite:///{path}", echo=False, pool_recycle=7200, connect_args={"check_same_thread": False})
+		self.engine = sqla.create_engine(
+			f"sqlite:///{path}",
+			echo=False,
+			pool_recycle=7200,
+			connect_args={"check_same_thread": False}
+		)
 		self.metadata = sqla.MetaData()
 
 		users_table = sqla.Table("Users", self.metadata,
 								 sqla.Column("id", sqla.Integer, primary_key=True),
 								 sqla.Column("name", sqla.String, unique=True),
-								 sqla.Column("last_login", sqla.DateTime)
+								 sqla.Column("last_login", sqla.DateTime),
+								 sqla.Column("password", sqla.String),
+								 sqla.Column("public_key", sqla.String)
 								 )
 		active_users_table = sqla.Table("Active_users", self.metadata,
 										sqla.Column("id", sqla.Integer, primary_key=True),
@@ -80,19 +89,42 @@ class Storage:
 		self.session.query(self.ActiveUsers).delete()
 		self.session.commit()
 
-	def user_login(self, username, ip_address, port):
-		query = self.session.query(self.Users).filter_by(name=username)
-		if query.count():
-			user = query.first()
-			user.last_login = datetime.datetime.now()
+	def get_password_hash(self, username):
+		query = self.session.query(self.Users.password).filter_by(name=username).first()
+		if query:
+			return query[0]
 		else:
-			user = self.Users(username)
-			self.session.add(user)
+			return False
 
+
+	def get_public_key(self, username):
+		query = self.session.query(self.Users.public_key).filter_by(name=username).first()
+		if query:
+			return query[0]
+		else:
+			return False
+
+	def set_public_key(self, username, key):
+		user = self.session.query(self.Users).filter_by(name=username).first()
+		user.public_key = key
+		self.session.commit()
+
+	def create_new_user(self, username, password_hash):
+		query = self.session.query(self.Users).filter_by(name=username)
+		if not query.count():
+			user = self.Users(username, password_hash)
+			self.session.add(user)
 			self.session.commit()
 
 			user_msg_history = self.UsersMessageHistory(user.id)
 			self.session.add(user_msg_history)
+			self.session.commit()
+
+	def get_all_usernames(self):
+		return self.session.query(self.Users.name).all()
+
+	def user_login(self, username, ip_address, port):
+		user = self.session.query(self.Users).filter_by(name=username).first()
 
 		active_user = self.ActiveUsers(user.id, ip_address, port, datetime.datetime.now())
 		self.session.add(active_user)

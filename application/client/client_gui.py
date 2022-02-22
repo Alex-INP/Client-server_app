@@ -34,6 +34,10 @@ class Ui_MainWindow(object):
         self.usernameLabel.setGeometry(QtCore.QRect(20, 2, 481, 41))
         self.usernameLabel.setObjectName("usernameLabel")
 
+        self.contactsLabel = QtWidgets.QLabel(self.centralwidget)
+        self.contactsLabel.setGeometry(QtCore.QRect(530, 2, 481, 41))
+        self.contactsLabel.setObjectName("usernameLabel")
+
         self.chatList = QtWidgets.QTableWidget(self.centralwidget)
         self.chatList.setGeometry(QtCore.QRect(15, 50, 491, 391))
         self.chatList.setObjectName("chatList")
@@ -56,3 +60,4 @@ class Ui_MainWindow(object):
         self.addContactButton.setText(_translate("MainWindow", "Add contact"))
         self.deleteContactButton.setText(_translate("MainWindow", "Delete contact"))
         self.usernameLabel.setText(_translate("MainWindow", "You are:"))
+        self.contactsLabel.setText(_translate("MainWindow", "Contact list"))

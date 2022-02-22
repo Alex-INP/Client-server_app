@@ -1,10 +1,16 @@
+import binascii
 import configparser
+import hmac
 import os
 import logging
 from socket import socket, AF_INET, SOCK_STREAM
+from random import choice
+from string import ascii_lowercase
 
 from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QApplication, QMessageBox
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
 
 import common.variables as vrb
 import json
@@ -93,24 +99,50 @@ class Server(threading.Thread, metaclass=ServerMetaclass):
 	@log
 	def process_client_message(self, message, message_list, client, all_clients, clients_sockets):
 		global new_connection
+
 		if vrb.ACTION in message and message[vrb.ACTION] == vrb.PRESENCE and vrb.TIME in message \
 				and vrb.USER in message:
 			if message[vrb.USER][vrb.ACCOUNT_NAME] not in clients_sockets.keys():
-				clients_sockets[message[vrb.USER][vrb.ACCOUNT_NAME]] = client
+				if vrb.PUBLIC_KEY in message[vrb.USER]:
+					self.database.set_public_key(message[vrb.USER][vrb.ACCOUNT_NAME], message[vrb.USER][vrb.PUBLIC_KEY])
+				password_message = "".join([choice(list(ascii_lowercase)) for _ in range(15)])
 
-				client_ip, client_port = client.getpeername()
+				send_message(client, {
+					vrb.RESPONSE: 200,
+					vrb.SERVER_PASSWORD_MESSAGE: password_message
+				})
 
-				self.database.user_login(message[vrb.USER][vrb.ACCOUNT_NAME], client_ip, client_port)
-				send_message(client, {vrb.RESPONSE: 200})
-				with thr_lock:
-					new_connection = True
-				LOG.info("Client's presence message has been responded ")
+				auth_client_response = client.recv(vrb.MAX_PACKAGE_LENGTH)
+				json_response = json.loads(auth_client_response)
+				user_password_answer = json_response[vrb.USER][vrb.PASSWORD]
+
+				if self.check_password(message[vrb.USER][vrb.ACCOUNT_NAME], user_password_answer, password_message):
+					clients_sockets[message[vrb.USER][vrb.ACCOUNT_NAME]] = client
+					client_ip, client_port = client.getpeername()
+					self.database.user_login(message[vrb.USER][vrb.ACCOUNT_NAME], client_ip, client_port)
+					with thr_lock:
+						new_connection = True
+					LOG.info(f"Client's presence message has been responded. {message[vrb.USER][vrb.ACCOUNT_NAME]} login success.")
+				else:
+					client.close()
+					LOG.info(f"{message[vrb.USER][vrb.ACCOUNT_NAME]} login fail.")
 			else:
 				send_message(client, {vrb.RESPONSE: 409,
 									  vrb.ERROR: f"Connection with username {message[vrb.USER][vrb.ACCOUNT_NAME]} already exists"})
 				all_clients.remove(client)
 				client.close()
 			return
+
+		elif vrb.ACTION in message and message[vrb.ACTION] == vrb.ASK_PUBKEY and vrb.PUBKEY_OWNER in message:
+			target_username = message[vrb.PUBKEY_OWNER]
+			public_key = self.database.get_public_key(target_username)
+			print(f"PUBKEY ASKED OF {target_username}")
+			if public_key:
+				send_message(client, {vrb.ACTION: vrb.RETURN_PUBKEY, vrb.RESPONSE: 200, vrb.TARGET_USER_PUBKEY: public_key})
+				return
+			else:
+				send_message(client, {vrb.ACTION: vrb.RETURN_PUBKEY, vrb.RESPONSE: 204, vrb.ERROR: "No Content"})
+				return
 
 		elif vrb.ACTION in message and message[vrb.ACTION] == vrb.MESSAGE and vrb.TIME in message \
 				and vrb.TO in message and vrb.FROM in message and vrb.JIM_ENCODING in message \
@@ -150,6 +182,20 @@ class Server(threading.Thread, metaclass=ServerMetaclass):
 		else:
 			LOG.error(f"There is no user {message[vrb.TO]} in system.")
 
+	def check_password(self, username, user_password_answer, password_message):
+		db_password = self.database.get_password_hash(username)
+		db_result = hmac.new(db_password, password_message.encode(), "MD5").digest()
+		result = hmac.compare_digest(
+			binascii.b2a_base64(db_result).decode("ascii").encode("ascii"),
+			user_password_answer.encode("ascii"))
+		return result
+
+def create_server_keys():
+	keys = RSA.generate(2048)
+	public_key = keys.public_key().exportKey()
+	private_key = keys.exportKey()
+	return {"public_key": public_key, "private_key": private_key}
+
 
 def main():
 	conf = configparser.ConfigParser()
@@ -173,13 +219,14 @@ def main():
 		LOG.critical(f"Wrong port: {port}")
 		raise ValueError
 
+
 	server = Server(adr, port, database)
 	server.daemon = True
 
 	server.start()
 
 	app = QApplication(sys.argv)
-	main_window = MainWindow()
+	main_window = MainWindow(database)
 
 	main_window.statusBar().showMessage("Server Working")
 	main_window.active_clients_table.setModel(gui_create_model(database))
@@ -245,6 +292,7 @@ def main():
 	main_window.config_btn.triggered.connect(server_config)
 	main_window.show_history_button.triggered.connect(show_statistics)
 	main_window.login_history_btn.triggered.connect(show_login_history)
+
 
 	app.exec_()
 

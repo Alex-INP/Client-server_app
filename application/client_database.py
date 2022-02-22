@@ -12,9 +12,11 @@ class ClientStorage:
 		__tablename__ = "users"
 		id = Column(Integer, primary_key=True)
 		username = Column(String, unique=True)
+		private_key = Column(String)
 
 		def __init__(self, username):
 			self.username = username
+			self.private_key = ""
 
 
 	class Contacts(database):
@@ -22,10 +24,12 @@ class ClientStorage:
 		id = Column(Integer, primary_key=True)
 		user = Column(ForeignKey("users.id"))
 		contact_username = Column(String)
+		contact_public_key = Column(String)
 
 		def __init__(self, user, contact_username):
 			self.user = user
 			self.contact_username = contact_username
+			self.contact_public_key = ""
 
 
 	class Messages(database):
@@ -45,7 +49,7 @@ class ClientStorage:
 
 	def __init__(self, cl_flag=0):
 		if cl_flag != 0:
-			db_adr="client_1_db.db"
+			db_adr = "client_1_db.db"
 		else:
 			db_adr = "client_db.db"
 		self.engine = create_engine(f"sqlite:///{db_adr}", echo=False, pool_recycle=7200,
@@ -61,6 +65,31 @@ class ClientStorage:
 		else:
 			self.session.add(self.Users(username))
 			self.session.commit()
+
+	def set_contact_pubkey(self, contact_username, public_key):
+		contacts = self.session.query(self.Contacts).filter_by(contact_username=contact_username)
+		for contact in contacts:
+			contact.contact_public_key = public_key
+		self.session.commit()
+
+	def get_contact_pubkey(self, contact_username):
+		query = self.session.query(self.Contacts.contact_public_key).filter_by(contact_username=contact_username).first()
+		if query:
+			return query[0]
+		else:
+			return False
+
+	def get_private_key(self, username):
+		query = self.session.query(self.Users.private_key).filter_by(username=username).first()
+		if query:
+			return query[0]
+		else:
+			return False
+
+	def set_private_key(self, username, private_key):
+		user = self.session.query(self.Users).filter_by(username=username).first()
+		user.private_key = private_key
+		self.session.commit()
 
 	def get_user_history(self, username, target_username):
 		query = self.session.query(
