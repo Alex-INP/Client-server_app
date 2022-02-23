@@ -1,14 +1,19 @@
 """Утилиты"""
-
-import json
-# import application.common.variables as vrb
-import application.common.variables as vrb
-from application.deco import log
 import sys
+import json
+import os
 
 sys.path.append("../")
 
-@log
+import application.common.variables as vrb
+from application.common.deco import log_it
+
+# sys.path.append("../")
+
+# base_dir = os.path.dirname(os.path.realpath(__file__))
+# sys.path.append(os.path.join(base_dir, "common"))
+
+@log_it
 def get_message(client):
     '''
     Утилита приёма и декодирования сообщения
@@ -26,7 +31,8 @@ def get_message(client):
         raise ValueError
     raise ValueError
 
-@log
+
+@log_it
 def send_message(sock, message):
     '''
     Утилита кодирования и отправки сообщения
