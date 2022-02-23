@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>client package &#8212; Client-server messenger 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="client_database module" href="client_database.html" />
+    <link rel="prev" title="application" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="client-package">
+<h1>client package<a class="headerlink" href="#client-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-client.client_gui">
+<span id="client-client-gui-module"></span><h2>client.client_gui module<a class="headerlink" href="#module-client.client_gui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="client.client_gui.Ui_MainWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">client.client_gui.</span></span><span class="sig-name descname"><span class="pre">Ui_MainWindow</span></span><a class="headerlink" href="#client.client_gui.Ui_MainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="client.client_gui.Ui_MainWindow.retranslateUi">
+<span class="sig-name descname"><span class="pre">retranslateUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">MainWindow</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.client_gui.Ui_MainWindow.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.client_gui.Ui_MainWindow.setupUi">
+<span class="sig-name descname"><span class="pre">setupUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">MainWindow</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.client_gui.Ui_MainWindow.setupUi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-client.main_client_gui">
+<span id="client-main-client-gui-module"></span><h2>client.main_client_gui module<a class="headerlink" href="#module-client.main_client_gui" title="Permalink to this headline">¶</a></h2>
+<p>Отвечает за интерфейс клиентской стороны.
+Реализует отрисовку и описывает взаимодействие элементов интерфейса.
+Берет на себя практически все задачи по отправке сообщений.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="client.main_client_gui.AddContact_dialog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">client.main_client_gui.</span></span><span class="sig-name descname"><span class="pre">AddContact_dialog</span></span><a class="headerlink" href="#client.main_client_gui.AddContact_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Описывает окно добавления контакта.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.AddContact_dialog.add_contact_btn_press">
+<span class="sig-name descname"><span class="pre">add_contact_btn_press</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.AddContact_dialog.add_contact_btn_press" title="Permalink to this definition">¶</a></dt>
+<dd><p>Обрабатывает подтверждение ввода имени контакта.
+Испускает сигнал.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="client.main_client_gui.AddContact_dialog.add_contact_signal">
+<span class="sig-name descname"><span class="pre">add_contact_signal</span></span><a class="headerlink" href="#client.main_client_gui.AddContact_dialog.add_contact_signal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.AddContact_dialog.initUI">
+<span class="sig-name descname"><span class="pre">initUI</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.AddContact_dialog.initUI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.AddContact_dialog.no_add">
+<span class="sig-name descname"><span class="pre">no_add</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.AddContact_dialog.no_add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Закрытие окна</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="client.main_client_gui.EnterName_dialog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">client.main_client_gui.</span></span><span class="sig-name descname"><span class="pre">EnterName_dialog</span></span><a class="headerlink" href="#client.main_client_gui.EnterName_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<p>Описывает окно логина.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.EnterName_dialog.initUI">
+<span class="sig-name descname"><span class="pre">initUI</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.EnterName_dialog.initUI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.EnterName_dialog.ok_btn_press">
+<span class="sig-name descname"><span class="pre">ok_btn_press</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.EnterName_dialog.ok_btn_press" title="Permalink to this definition">¶</a></dt>
+<dd><p>Обрабатывает подтверждение ввода логина и пароля.
+Испускает сигнал.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="client.main_client_gui.EnterName_dialog.ok_username_signal">
+<span class="sig-name descname"><span class="pre">ok_username_signal</span></span><a class="headerlink" href="#client.main_client_gui.EnterName_dialog.ok_username_signal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">client.main_client_gui.</span></span><span class="sig-name descname"><span class="pre">MainWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_queue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_contact_gui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
+<p>Описывает главное окно интерфейса.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.add_contact">
+<span class="sig-name descname"><span class="pre">add_contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.add_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Добавляет контакт в список контактов.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – значение становится доступно из pyqt сигнала</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.add_item_to_chat">
+<span class="sig-name descname"><span class="pre">add_item_to_chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.add_item_to_chat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Добавляет в окно чата новое сообщение.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item_data</strong> (<em>list</em>) – список с информацией о сообщении</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.check_chat_length">
+<span class="sig-name descname"><span class="pre">check_chat_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.check_chat_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Проверяет количество сообщений в чате, и меняет ширину окна чата при необходимости.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.closeEvent">
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Обработчик события закрытия окна интерфейса.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>event</strong> – не используемый аргумент</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.create_n_send_message">
+<span class="sig-name descname"><span class="pre">create_n_send_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jim_msg_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.create_n_send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Создает и отправляет сообщение на сервер для другого пользователя.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sock</strong> (<em>socket</em>) – </p></li>
+<li><p><strong>jim_msg_var</strong> (<em>str</em>) – не используемый аргумент</p></li>
+<li><p><strong>username</strong> – имя пользователя</p></li>
+<li><p><strong>target_username</strong> – имя пользователя-адресата</p></li>
+<li><p><strong>msg</strong> – текст сообщения</p></li>
+<li><p><strong>date</strong> – дата сообщения</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.decrypt_message">
+<span class="sig-name descname"><span class="pre">decrypt_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.decrypt_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Дешифрует сообщение.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>list</em>) – список с данными сообщения</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>список с данными с разшифрованым сообщением</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.delete_contact">
+<span class="sig-name descname"><span class="pre">delete_contact</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.delete_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Удаляет контакт из списка контактов.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.fill_chat_history">
+<span class="sig-name descname"><span class="pre">fill_chat_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.fill_chat_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Заполняет чат из истории сообщений.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> (<em>str</em>) – имя контакта становится доступно из соответствующего виджета</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.get_user_login_data">
+<span class="sig-name descname"><span class="pre">get_user_login_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.get_user_login_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Возвращает имя и пароль пользователя</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.make_connection_add_contact">
+<span class="sig-name descname"><span class="pre">make_connection_add_contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.make_connection_add_contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Соединитель сигнала.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>button_object</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.make_connection_show_mainwindow">
+<span class="sig-name descname"><span class="pre">make_connection_show_mainwindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.make_connection_show_mainwindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Соединитель сигнала.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>button_object</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.message_queue_check">
+<span class="sig-name descname"><span class="pre">message_queue_check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.message_queue_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Проверяет объект queue.Queue() переданый в экземпляр класса,
+на наличие новых обьектов-сообщений.
+При наличии, извлекает сообщение из очереди и обрабатывает его.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.reload_contact_list">
+<span class="sig-name descname"><span class="pre">reload_contact_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.reload_contact_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Очищает список контактов и заполняет его обновленными значениями.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.send_client_message">
+<span class="sig-name descname"><span class="pre">send_client_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.send_client_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Осуществляет отправку собщения.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.send_exit_message">
+<span class="sig-name descname"><span class="pre">send_exit_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.send_exit_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Отправляет на сервер сообщение о завершении работы клиента.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sock</strong> (<em>socket</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.set_current_encryptor">
+<span class="sig-name descname"><span class="pre">set_current_encryptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.set_current_encryptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>В случае, если не передан response - отправляет сообщение на сервер
+с запросом публичного ключа текщего пользователя-контакта.
+Если response передан, то устанавливает новый дешифратор сообщений,
+в соответствии с переданым публичным ключом.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> (<em>list</em>) – список с данными сообщения</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.show_add_contact_gui">
+<span class="sig-name descname"><span class="pre">show_add_contact_gui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.show_add_contact_gui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Осуществляет рендеринг окна добавления контакта в список контактов.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.show_mainwindow">
+<span class="sig-name descname"><span class="pre">show_mainwindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.show_mainwindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Задает некоторые атрибуты экземпляра класса MainWindow и рендерит интерфейс.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>dict</em>) – значение становится доступно из pyqt сигнала</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="client.main_client_gui.MainWindow.show_message_box">
+<span class="sig-name descname"><span class="pre">show_message_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#client.main_client_gui.MainWindow.show_message_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Рендерит окно с оповещением.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – текст оповещения</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-client">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-client" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Client-server messenger</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">application</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">client package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client_database.html">client_database module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client_main.html">client_main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common.html">common package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="descriptors.html">descriptors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metaclasses.html">metaclasses module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server_database.html">server_database module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server_gui.html">server_gui module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server_main.html">server_main module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">application</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">application</a></li>
+      <li>Next: <a href="client_database.html" title="next chapter">client_database module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Alexander.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/client.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
